@@ -265,33 +265,81 @@ public class User {
         System.out.println("--------------------------------------------------");
     }
 
-    /**
-     * Generates a text file with the user's itinerary.
-     * @param fileName The name of the file to save the itinerary.
-     */
-    public void generateItinerary(String fileName) {
-        try (FileWriter writer = new FileWriter(fileName)) {
-            writer.write("--------------------------------------------------\n");
-            writer.write("                  USER ITINERARY                   \n");
-            writer.write("--------------------------------------------------\n");
-            writer.write("User ID       : " + userId + "\n");
-            writer.write("Name          : " + name + "\n");
-            writer.write("Email         : " + email + "\n");
-            writer.write("Location      : " + userLocation + "\n");
-            writer.write("Contact Info  : " + contactInfo + "\n");
-            writer.write("Trip Length   : " + tripLength + " days\n");
-            writer.write("Seat Type     : " + seatType + "\n");
-            writer.write("Flight Class  : " + flightClass + "\n");
-            writer.write("Wi-Fi         : " + (hasWifi ? "Yes" : "No") + "\n");
-            writer.write("Entertainment : " + (hasEntertainment ? "Yes" : "No") + "\n");
-            writer.write("Food Quality  : " + foodQuality + "\n");
-            writer.write("--------------------------------------------------\n");
-            writer.write("Thank you for choosing our services!\n");
-            writer.write("--------------------------------------------------\n");
-            System.out.println("Itinerary saved to " + fileName);
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving the itinerary.");
-            e.printStackTrace();
-        }
-    }
+    	/**
+	 * Generates a text file with the user's itinerary. If the file already exists,
+	 * the new itinerary will be appended to the file.
+	 * @param fileName The name of the file to save the itinerary.
+	 */
+	public void generateItinerary(String fileName) {
+	    try (FileWriter writer = new FileWriter(fileName, true)) {
+		writer.write("--------------------------------------------------\n");
+		writer.write("                  USER ITINERARY                   \n");
+		writer.write("--------------------------------------------------\n");
+		writer.write("User ID       : " + userId + "\n");
+		writer.write("Name          : " + name + "\n");
+		writer.write("Email         : " + email + "\n");
+		writer.write("Location      : " + userLocation + "\n");
+		writer.write("Contact Info  : " + contactInfo + "\n");
+		writer.write("Trip Length   : " + tripLength + " days\n");
+		writer.write("Seat Type     : " + seatType + "\n");
+		writer.write("Flight Class  : " + flightClass + "\n");
+		writer.write("Wi-Fi         : " + (hasWifi ? "Yes" : "No") + "\n");
+		writer.write("Entertainment : " + (hasEntertainment ? "Yes" : "No") + "\n");
+		writer.write("Food Quality  : " + foodQuality + "\n");
+		writer.write("--------------------------------------------------\n");
+		writer.write("Thank you for choosing our services!\n");
+		writer.write("--------------------------------------------------\n\n");
+		System.out.println("Itinerary saved to " + fileName);
+	    } catch (IOException e) {
+		System.out.println("An error occurred while saving the itinerary.");
+		e.printStackTrace();
+	    }
+	}
+	
+	 /**
+	 * Displays the itinerary for a specific user from the itinerary file.
+	 * @param fileName The name of the file to read from.
+	 * @param name The name of the user to search for.
+	 */
+	public static void showItineraryForUser(String fileName, String name) {
+	    try (FileReader fileReader = new FileReader(fileName)) {
+		boolean found = false;
+		boolean isUserItinerary = false;
+		int character;
+		StringBuilder currentLine = new StringBuilder();
+
+		while ((character = fileReader.read()) != -1) {
+
+		    if (character != '\n') {
+		        currentLine.append((char) character);
+		    } else {
+
+		        if (currentLine.toString().contains("Name          : " + name)) {
+		            found = true;
+		            isUserItinerary = true;
+		        }
+
+		        if (isUserItinerary) {
+		            System.out.println(currentLine.toString());
+		        }
+                
+		        currentLine.setLength(0);
+
+		        if (isUserItinerary && currentLine.toString().contains("--------------------------------------------------")) {
+		            isUserItinerary = false;
+		            break; 
+		        }
+		    }
+		}
+
+		if (!found) {
+		    System.out.println("No itinerary found for user: " + name);
+		}
+	    } catch (IOException e) {
+		System.out.println("An error occurred while reading the itinerary file.");
+		e.printStackTrace();
+	    }
+	}
+	
+	
 }
