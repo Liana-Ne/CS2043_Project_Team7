@@ -1,3 +1,4 @@
+package junittesting;
 
 
 public class Passenger {
