@@ -1,3 +1,5 @@
+package FlightManagementSystem;
+
 public class Booking {
     private Flight flight;
     private Passenger passenger;
@@ -17,6 +19,7 @@ public class Booking {
 
     @Override
     public String toString() {
-        return passenger + " booked " + flight;
+        return String.format("%s - Flight %s to %s", 
+            passenger.getName(), flight.getFlightNumber(), flight.getDestination());
     }
 }
