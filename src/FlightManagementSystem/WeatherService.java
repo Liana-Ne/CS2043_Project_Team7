@@ -5,18 +5,18 @@ import java.util.List;
 import java.util.Random;
 
 public class WeatherService {
-    private final Random random = new Random();
+    private Random random = new Random();
 
-    public WeatherService(String apiKey) {
-        // API key not used in the mock implementation
+    public WeatherService() {
+        // No API key needed for mock implementation
     }
 
     public WeatherInfo getWeather(String destination) {
-        // For demonstration, return simulated weather data
-        double temperature = 15 + random.nextDouble() * 20; // Random temp between 15-35
-        String[] conditions = {"Sunny", "Cloudy", "Partly Cloudy", "Light Rain", "Clear"};
+        // Simulate getting weather data
+        double temperature = 15 + (random.nextDouble() * 20 - 10); // Temperature between 5 and 25
+        String[] conditions = {"Sunny", "Cloudy", "Light Rain", "Clear"};
         String condition = conditions[random.nextInt(conditions.length)];
-        
+
         WeatherInfo weatherInfo = new WeatherInfo(destination, temperature, condition, new ArrayList<>());
         PackingList packingList = PackingList.generateFromWeather(weatherInfo);
         
