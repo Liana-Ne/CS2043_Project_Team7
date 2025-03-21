@@ -1,18 +1,19 @@
 package FlightManagementSystem;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class WeatherInfo {
     private String destination;
     private double temperature;
     private String condition;
-    private List<String> packingRecommendations;
+    private List<String> packingList;
 
-    public WeatherInfo(String destination, double temperature, String condition, List<String> packingRecommendations) {
+    public WeatherInfo(String destination, double temperature, String condition, List<String> packingList) {
         this.destination = destination;
         this.temperature = temperature;
         this.condition = condition;
-        this.packingRecommendations = packingRecommendations;
+        this.packingList = packingList != null ? packingList : new ArrayList<>();
     }
 
     public String getDestination() {
@@ -27,12 +28,13 @@ public class WeatherInfo {
         return condition;
     }
 
-    public List<String> getPackingRecommendations() {
-        return packingRecommendations;
+    public List<String> getPackingList() {
+        return new ArrayList<>(packingList);
     }
 
     @Override
     public String toString() {
-        return String.format("%s: %.1f°C, %s", destination, temperature, condition);
+        return String.format("Weather in %s: %.1f°C, %s", 
+            destination, temperature, condition);
     }
 } 
