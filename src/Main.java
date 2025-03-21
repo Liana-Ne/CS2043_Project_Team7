@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import java.util.List;
 
@@ -7,15 +6,15 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         FlightService flightService = new FlightService();
         BookingService bookingService = new BookingService();
+        WeatherService weatherService = new WeatherService(WeatherConfig.getApiKey());
 
-        System.out.println("\nWelcome to the Flight Management System!");
+        System.out.println("\nWelcome!");
 
         while (true) {
             System.out.println("\nMenu:");
-            System.out.println("1. View Available Flights from Fredericton");
-            System.out.println("2. Book a Flight");
-            System.out.println("3. View Bookings");
-            System.out.println("4. Exit");
+            System.out.println("1. Plan a New Trip");
+            System.out.println("2. View My Bookings");
+            System.out.println("3. Exit");
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
@@ -23,45 +22,78 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    System.out.println("\nAvailable Flights from Fredericton:");
-                    List<Flight> availableFlights = flightService.getAvailableFlights();
-                    for (Flight flight : availableFlights) {
-                        System.out.println(flight);
-                    }
+                    planNewTrip(scanner, weatherService, flightService, bookingService);
                     break;
 
                 case 2:
-                    System.out.print("Enter your Name: ");
-                    String name = scanner.nextLine();
-                    System.out.print("Enter Passport Number: ");
-                    String passportNumber = scanner.nextLine();
-                    System.out.print("Enter Flight Number to book: ");
-                    String flightNumToBook = scanner.nextLine();
-
-                    Flight selectedFlight = flightService.findFlightByNumber(flightNumToBook);
-                    if (selectedFlight != null) {
-                        Passenger passenger = new Passenger(name, passportNumber);
-                        bookingService.bookFlight(selectedFlight, passenger);
-                    } else {
-                        System.out.println("Flight not found!");
+                    System.out.println("\nYour Bookings:");
+                    for (Booking booking : bookingService.getAllBookings()) {
+                        System.out.println(booking);
+                        try {
+                            // Show current weather at the destination
+                            Flight flight = booking.getFlight();
+                            WeatherInfo weatherInfo = weatherService.getWeather(flight.getDestination());
+                            System.out.println("Current weather at destination:");
+                            System.out.println(weatherInfo);
+                            System.out.println("------------------------");
+                        } catch (Exception e) {
+                            System.out.println("Unable to fetch current weather: " + e.getMessage());
+                        }
                     }
                     break;
 
                 case 3:
-                    System.out.println("\nAll Bookings:");
-                    for (Booking booking : bookingService.getAllBookings()) {
-                        System.out.println(booking);
-                    }
-                    break;
-
-                case 4:
-                    System.out.println("Exiting...");
+                    System.out.println("Thank you for using our service. Have a great trip!");
                     scanner.close();
                     return;
 
                 default:
-                    System.out.println("Invalid option. Try again.");
+                    System.out.println("Invalid option. Please try again.");
             }
+        }
+    }
+
+    private static void planNewTrip(Scanner scanner, WeatherService weatherService, 
+                                  FlightService flightService, BookingService bookingService) {
+        System.out.println("\nLet's plan your trip from Fredericton!");
+        
+        // Get destination
+        System.out.print("Where would you like to go? (Enter city name): ");
+        String destination = scanner.nextLine();
+
+        // Check weather at destination
+        try {
+            WeatherInfo weatherInfo = weatherService.getWeather(destination);
+            System.out.println("\nCurrent weather at " + destination + ":");
+            System.out.println(weatherInfo);
+            
+            // If weather info looks good, proceed with booking
+            System.out.println("\nWould you like to book a flight to " + destination + "? (yes/no): ");
+            String bookChoice = scanner.nextLine();
+            
+            if (bookChoice.equalsIgnoreCase("yes")) {
+                // Get or create a flight for this destination
+                Flight flight = flightService.findOrCreateFlight(destination);
+                
+                // Get passenger details
+                System.out.print("Enter your name: ");
+                String name = scanner.nextLine();
+                System.out.print("Enter your passport number: ");
+                String passportNumber = scanner.nextLine();
+                
+                Passenger passenger = new Passenger(name, passportNumber);
+                bookingService.bookFlight(flight, passenger);
+                
+                System.out.println("\nBooking confirmed!");
+                System.out.println("Flight details: " + flight);
+                System.out.println("\nPacking Recommendations:");
+                System.out.println("Based on the weather, you should pack:");
+                for (String item : weatherInfo.getPackingRecommendations()) {
+                    System.out.println("- " + item);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
