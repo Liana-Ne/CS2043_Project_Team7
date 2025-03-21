@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="src.MainViewController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <TabPane VBox.vgrow="ALWAYS">
+        <Tab text="Book Flight">
+            <VBox spacing="10">
+                <GridPane vgap="10" hgap="10">
+                    <Label text="Origin:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <TextField fx:id="originField" text="Fredericton" disable="true" 
+                             GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <Label text="Destination:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <TextField fx:id="destinationField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                    <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                    <Label text="Passport:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <TextField fx:id="passportField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                    <Label text="Vacation Length (days):" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                    <Spinner fx:id="vacationLengthSpinner" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                </GridPane>
+
+                <HBox spacing="10">
+                    <Button text="Search" onAction="#handleSearchFlight"/>
+                    <Button text="Book Flight" onAction="#handleBookFlight"/>
+                </HBox>
+
+                <Label text="Weather Information:"/>
+                <TextArea fx:id="weatherInfoArea" editable="false" wrapText="true" prefRowCount="4"/>
+
+                <Label text="Recommended Packing List:"/>
+                <TextArea fx:id="packingListArea" editable="false" wrapText="true" prefRowCount="8"/>
+            </VBox>
+        </Tab>
+
+        <Tab text="My Bookings">
+            <VBox spacing="10">
+                <ListView fx:id="bookingsList" VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </Tab>
+    </TabPane>
+</VBox>

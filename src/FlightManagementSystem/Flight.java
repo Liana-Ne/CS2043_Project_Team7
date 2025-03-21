@@ -1,4 +1,4 @@
-
+package FlightManagementSystem;
 
 public class Flight {
     private String flightNumber;
@@ -45,7 +45,7 @@ public class Flight {
 
     @Override
     public String toString() {
-        return "Flight " + flightNumber + " | " + origin + " → " + destination + " | Seats: "
-                + bookedSeats + "/" + capacity;
+        return String.format("%s: %s to %s (%d/%d seats)", 
+            flightNumber, origin, destination, bookedSeats, capacity);
     }
 }

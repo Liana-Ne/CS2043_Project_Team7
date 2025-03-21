@@ -1,10 +1,12 @@
+package FlightManagementSystem;
+
 import java.util.List;
 
 public class WeatherInfo {
-    private final String destination;
-    private final double temperature;
-    private final String condition;
-    private final List<String> packingRecommendations;
+    private String destination;
+    private double temperature;
+    private String condition;
+    private List<String> packingRecommendations;
 
     public WeatherInfo(String destination, double temperature, String condition, List<String> packingRecommendations) {
         this.destination = destination;
@@ -31,12 +33,6 @@ public class WeatherInfo {
 
     @Override
     public String toString() {
-        return String.format(
-            "Weather in %s:%nTemperature: %.1f°C%nCondition: %s%nPacking Recommendations:%n%s",
-            destination,
-            temperature,
-            condition,
-            String.join("%n", packingRecommendations)
-        );
+        return String.format("%s: %.1f°C, %s", destination, temperature, condition);
     }
 } 
