@@ -1,0 +1,27 @@
+BOOKING CONFIRMATION
+===================
+
+Passenger: dd dd
+Flight: FRE14 to Dubai
+Seat: 6B (First Class)
+Departure: 2033/11/11
+Return: 2033/11/11
+
+Weather Information:
+Weather in Dubai: 9.6°C, Cloudy
+
+Recommended Packing List:
+- Passport
+- Travel Documents
+- Phone and Charger
+- Wallet
+- Winter Coat
+- Thermal Underwear
+- Gloves
+- Winter Hat
+- Scarf
+- Warm Socks
+- Boots
+
+Declared Items:
+Tobacco products
