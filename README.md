@@ -1,29 +1,48 @@
-# CS2043_Project_Team7
-Vacation Management Software - planning flights, accommodations, and itineraries
+# Flight Management System GUI
 
-Features:
+A Java Swing desktop application demonstrating a user interface for browsing and booking flights.
 
-User.java (Main Class)
+## Overview
 
-    Represents a user with attributes such as ID, name, email, location, and contact information.
-    Supports user actions including registration, login, and profile updates.
-    Generates a simple invoice displaying user details.
+This project simulates a flight booking experience through a graphical user interface. Users can view a list of available flights, input their details, select a seat from a visual layout, declare items, and receive a booking confirmation complete with simulated weather information and a packing list for their destination.
 
-UserTest.java (JUnit Test Class)
+## Key Features
 
-    Validates the User class using JUnit 5.
-    Ensures the correctness of user actions like registration, login, and profile updates.
-    Captures and verifies console outputs for expected results.
+*   **Flight Browsing:** Displays a list of available flights with details like flight number and destination.
+*   **Booking Form:** Allows users to input:
+    *   First and Last Name (with basic validation)
+    *   Departure and Return Dates (using a custom `DateTextField` with YYYY/MM/DD format validation, placeholder text, and date logic checks)
+    *   Seat Class preference
+*   **Visual Seat Selection:**
+    *   Presents a scrollable seat map divided into First Class, Economy, and Business sections.
+    *   Uses custom `SeatButton` components to show seat numbers and handle selection state visually.
+    *   **Note:** Seat availability is currently *simulated* for demonstration purposes based on the flight number, not real-time booking data. Unavailable seats are visually disabled.
+*   **Declarations:** Provides checkboxes for declaring common items like tobacco, alcohol, or weapons.
+*   **Booking Confirmation:**
+    *   Displays a detailed confirmation dialog upon successful booking.
+    *   Includes passenger details, flight information, selected seat, and dates.
+    *   Shows simulated weather information for the destination (provided by `WeatherService`).
+    *   Generates a recommended packing list based on the simulated weather.
+    *   Lists any items declared by the user.
+*   **Print Itinerary:** Allows the user to save the booking confirmation details (including weather and packing list) to a local text file (e.g., `itinerary_FL123_john_doe.txt`).
 
-Added all the unit test classes in the unit-testing branch:
-    Task of each test class:
-    
-    PackingListTest class: Checks if essential items (like passport, clothes) are included. 
-                           It ensures weather based packing. 
-                           It also generates a packing list depending the trip duration.
-                           
-    FlightTest class: Tests the Flight class to ensure flights are created and managed correctly.
-                      Checks if a flight is created with the correct number, origin, destination, and capacity.
-                      Tests if seats can be booked successfully.
-                      Ensures no overbooking happens (fails when flight is full).
-                      
+## Technical Details
+
+*   **Language:** Java
+*   **Framework:** Swing (for the GUI)
+*   **Architecture:** Interacts with service layers (`FlightService`, `BookingService`, `WeatherService`) to handle backend logic (though the implementations of these services are separate). Uses custom Swing components (`SeatButton`, `DateTextField`, `StyledTextField`) for specific UI elements and validation.
+
+## Running the Application
+
+1.  **Compile the Java code:**
+    Navigate to the `src` directory in your terminal.
+    ```bash
+    javac FlightManagementSystem/*.java
+    ```
+    *(Adjust command based on your project structure/build system if needed)*
+
+2.  **Run the application:**
+    From the `src` directory:
+    ```bash
+    java FlightManagementSystem.FlightManagementGUI
+    ```
