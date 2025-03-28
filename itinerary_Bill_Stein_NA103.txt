@@ -1,0 +1,33 @@
+FLIGHT ITINERARY
+=======================
+
+Passenger Information:
+Name: Bill Stein
+Email: email@example.com
+Phone: 555-0123
+
+Flight Information:
+Flight Number: NA103
+From: Fredericton
+To: Chicago
+Seat: 4D
+Class: First Class
+
+Weather at Destination:
+Temperature: 24.2°C
+Conditions: Light Rain
+
+Recommended Packing List:
+- Passport
+- Travel Documents
+- Phone and Charger
+- Wallet
+- T-Shirts
+- Shorts
+- Sandals
+- Sunglasses
+- Sunscreen
+- Hat
+- Rain Jacket
+- Umbrella
+- Waterproof Shoes

@@ -1,0 +1,27 @@
+BOOKING CONFIRMATION
+===================
+
+Passenger: Bill Stein
+Flight: FRE1 to Toronto
+Seat: 1C (First Class)
+Departure: 2026/11/09
+Return: 2027/02/22
+
+Weather Information:
+Weather in Toronto: 23.3°C, Clear
+
+Recommended Packing List:
+- Passport
+- Travel Documents
+- Phone and Charger
+- Wallet
+- T-Shirts
+- Shorts
+- Sandals
+- Sunglasses
+- Sunscreen
+- Hat
+
+Declared Items:
+Tobacco products
+Alcohol

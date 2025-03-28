@@ -1,7 +1,6 @@
 package FlightManagementSystem;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class FlightService {
     private List<Flight> flights;
@@ -13,49 +12,22 @@ public class FlightService {
     }
 
     private void initializeFlights() {
-        // North American Destinations
-        addFlight("NA101", "Toronto");
-        addFlight("NA102", "Los Angeles");
-        addFlight("NA103", "Chicago");
-        addFlight("NA104", "Miami");
-        addFlight("NA105", "Vancouver");
-        addFlight("NA106", "Las Vegas");
-        addFlight("NA107", "San Francisco");
-        addFlight("NA108", "Montreal");
-        addFlight("NA109", "Calgary");
-        addFlight("NA110", "Halifax");
+        String[] destinations = {
+            "Toronto", "Los Angeles", "Chicago", "Miami", "Vancouver",
+            "Las Vegas", "San Francisco", "Montreal", "Calgary", "Halifax",
+            "London", "Paris", "Tokyo", "Dubai", "Sydney",
+            "Rome", "Amsterdam", "Berlin", "Madrid", "Barcelona",
+            "Singapore", "Hong Kong", "Seoul"
+        };
 
-        // European Destinations
-        addFlight("EU201", "London");
-        addFlight("EU202", "Paris");
-        addFlight("EU203", "Rome");
-        addFlight("EU204", "Barcelona");
-        addFlight("EU205", "Amsterdam");
-        addFlight("EU206", "Berlin");
-        addFlight("EU207", "Athens");
-        addFlight("EU208", "Dublin");
-        addFlight("EU209", "Vienna");
-        addFlight("EU210", "Prague");
-
-        // Asian Destinations
-        addFlight("AS301", "Tokyo");
-        addFlight("AS302", "Seoul");
-        addFlight("AS303", "Beijing");
-        addFlight("AS304", "Shanghai");
-        addFlight("AS305", "Hong Kong");
-        addFlight("AS306", "Singapore");
-        addFlight("AS307", "Bangkok");
-        addFlight("AS308", "Mumbai");
-        addFlight("AS309", "Dubai");
-        addFlight("AS310", "Istanbul");
-    }
-
-    private void addFlight(String flightNumber, String destination) {
-        flights.add(new Flight(flightNumber, ORIGIN, destination));
+        for (String destination : destinations) {
+            Flight flight = new Flight("FRE" + (flights.size() + 1), ORIGIN, destination);
+            flights.add(flight);
+        }
     }
 
     public List<Flight> getAllFlights() {
-        return new ArrayList<>(flights);
+        return flights;
     }
 
     public Flight getFlightByNumber(String flightNumber) {
@@ -75,8 +47,7 @@ public class FlightService {
     public Flight findOrCreateFlight(String destination) {
         // Look for existing flight to the destination
         Flight existingFlight = flights.stream()
-                .filter(f -> f.getDestination().equalsIgnoreCase(destination) && 
-                           f.getBookedSeats() < f.getCapacity())
+                .filter(f -> f.getDestination().equalsIgnoreCase(destination))
                 .findFirst()
                 .orElse(null);
 
