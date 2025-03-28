@@ -7,9 +7,9 @@ public class Flight {
     private String flightNumber;
     private String origin;
     private String destination;
-    private Map<String, Boolean> seats; // Format: "1A-ECO", "1B-ECO", etc.
-    private static final String[] SEAT_LETTERS = {"A", "B", "C", "D", "E", "F"};
-    private static final String[] SEAT_CLASSES = {"Economy", "Business", "First Class"};
+    private static final String[] FIRST_CLASS_LETTERS = {"A", "B", "C", "D"};
+    private static final String[] REGULAR_LETTERS = {"A", "B", "C", "D", "E", "F"};
+    private static final String[] SEAT_CLASSES = {"First Class", "Business", "Economy"};
     private static final Map<String, Double> CLASS_PRICES = new HashMap<>();
     
     static {
@@ -22,29 +22,6 @@ public class Flight {
         this.flightNumber = flightNumber;
         this.origin = origin;
         this.destination = destination;
-        this.seats = new HashMap<>();
-        initializeSeats();
-    }
-
-    private void initializeSeats() {
-        // First Class (Rows 1-5)
-        for (int row = 1; row <= 5; row++) {
-            for (String letter : SEAT_LETTERS) {
-                seats.put(row + letter + "-First Class", false);
-            }
-        }
-        // Business (Rows 6-15)
-        for (int row = 6; row <= 15; row++) {
-            for (String letter : SEAT_LETTERS) {
-                seats.put(row + letter + "-Business", false);
-            }
-        }
-        // Economy (Rows 16-50)
-        for (int row = 16; row <= 50; row++) {
-            for (String letter : SEAT_LETTERS) {
-                seats.put(row + letter + "-Economy", false);
-            }
-        }
     }
 
     public String getFlightNumber() {
@@ -60,36 +37,22 @@ public class Flight {
     }
 
     public boolean isSeatAvailable(String key) {
-        return seats.containsKey(key) && !seats.get(key);
+        return true;  // All seats are always available
     }
 
     public boolean bookSeat(String seatNumber, String seatClass) {
-        String key = seatNumber + "-" + seatClass;
-        if (isSeatAvailable(key)) {
-            seats.put(key, true);
-            return true;
-        }
-        return false;
-    }
-
-    public int getBookedSeats() {
-        int count = 0;
-        for (Boolean isBooked : seats.values()) {
-            if (isBooked) count++;
-        }
-        return count;
-    }
-
-    public int getCapacity() {
-        return seats.size();
+        return true;  // Always succeeds
     }
 
     public static String[] getSeatClasses() {
         return SEAT_CLASSES;
     }
 
-    public static String[] getSeatLetters() {
-        return SEAT_LETTERS;
+    public static String[] getSeatLetters(String seatClass) {
+        if ("First Class".equals(seatClass)) {
+            return FIRST_CLASS_LETTERS;
+        }
+        return REGULAR_LETTERS;
     }
 
     public double getPrice(String seatClass) {
@@ -99,6 +62,6 @@ public class Flight {
 
     @Override
     public String toString() {
-        return String.format("Flight %s to %s", flightNumber, destination);
+        return destination;
     }
 }
