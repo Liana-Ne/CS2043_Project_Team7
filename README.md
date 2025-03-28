@@ -17,6 +17,7 @@ UserTest.java (JUnit Test Class)
 
 Added all the unit test classes in the unit-testing branch:
     Task of each test class:
+    
     PackingListTest class: Checks if essential items (like passport, clothes) are included. 
                            It ensures weather based packing. 
                            It also generates a packing list depending the trip duration.
